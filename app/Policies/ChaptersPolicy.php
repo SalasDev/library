@@ -22,16 +22,29 @@ class ChaptersPolicy
 
     public function create(User $user, $args)
     {
-        return $user->id === $args->user->id;
+    	foreach ($args->users as $userBook) {
+    		if ($user->id === $userBook->id) {
+    			return $userBook->pivot->permission_id === 1 ? true : false;
+    		}
+    	}
+        
     }
 
     public function storeChapter(User $user, $args)
     {
-        return $user->id === $args->user->id;
+        foreach ($args->users as $userBook) {
+    		if ($user->id === $userBook->id) {
+    			return $userBook->pivot->permission_id === 1 ? true : false;
+    		}
+    	}
     }
 
     public function edit(User $user, $args)
     {
-        return $user->id === $args->user->id;
+        foreach ($args->users as $userBook) {
+    		if ($user->id === $userBook->id) {
+    			return $userBook->pivot->permission_id === 1 ? true : false;
+    		}
+    	}
     }
 }

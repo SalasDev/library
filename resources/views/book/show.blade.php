@@ -10,7 +10,7 @@
 			</div>
 			<div class="card-body">
 				<p class="card-text text-secondary">Definition: {{$book->definition?:'Not definition provided'}}</p>
-				<p>By: <a href="{{ route('user.show', $book->user) }}">{{ $book->user->username }}</a></p>
+				<p>By: <a href="{{ route('user.show', $book->users->first()) }}">{{ $book->users->first()->username }}</a></p>
 				@can('edit', $book)
 					<div class="btn-group btn-block btn-sm" role="group">
 						<a class="btn btn-secondary" role="btn" href="{{ route('chapter.create', $book) }}">Add chapter</a>

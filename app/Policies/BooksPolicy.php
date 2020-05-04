@@ -12,7 +12,11 @@ class BooksPolicy
 
     public function edit(User $user, Book $book)
     {
-        return $user->id === $book->user->id;
+        foreach ($book->users as $userBook) {
+            if ($userBook->id === $user->id){
+                return ($userBook->pivot->permission_id === 1);
+            }
+        }
     }
 
     /**
@@ -24,7 +28,11 @@ class BooksPolicy
      */
     public function update(User $user, Book $book)
     {
-        return $user->id === $book->user->id;
+        foreach ($book->users as $userBook) {
+            if ($userBook->id === $user->id){
+                return ($userBook->pivot->permission_id === 1);
+            }
+        }
     }
 
     /**
@@ -36,6 +44,10 @@ class BooksPolicy
      */
     public function delete(User $user, Book $book)
     {
-        return $user->id === $book->user->id;
+        foreach ($book->users as $userBook) {
+            if ($userBook->id === $user->id){
+                return ($userBook->pivot->permission_id === 1);
+            }
+        }
     }
 }

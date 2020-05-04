@@ -12,7 +12,7 @@
 					</div>
 					<div class="card-body">
 						<p>Definition: {{$book->definition?:"Not definition provided"}}</p>
-						<p>by: <a href="{{ route('user.show', $book->user) }}">{{$book->user->username}}</a></p>
+						<p>by: <a href="{{ route('user.show', $book->users->first()) }}">{{$book->users->first()->username}}</a></p>
 					</div>
 					<div class="card-footer">
 						<a class="btn btn-primary btn-block" href="{{ route('book.show', $book) }}">Go to</a>

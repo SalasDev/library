@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\BookPermission;
 use App\Chapter;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +15,9 @@ class Book extends Model
         return 'slug';
     }
 
-    public function user()
+    public function users()
     {
-    	return $this->belongsTo(User::class);
+    	return $this->belongsToMany(User::class, 'book_permissions')->using(BookPermission::class)->withPivot('permission_id');
     }
 
     public function chapters()

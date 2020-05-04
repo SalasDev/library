@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\BookPermission;
 use App\Http\Requests\BookRequest;
+use App\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -44,9 +46,13 @@ class BookController extends Controller
     public function store(BookRequest $request)
     {
         $book = (new Book)->fill($request->validated());
-        $book->user_id = $request->user()->id;
+        $bookpermission = (new BookPermission);
         $book->slug = Str::slug($book->title, '-');
         $book->save();
+        $bookpermission->permission_id = 1;
+        $bookpermission->user_id = auth()->user()->id;
+        $bookpermission->book_id = $book->id;
+        $bookpermission->save();
         return redirect(route('book.index'))->with('status', 'book has been created');
     }
 

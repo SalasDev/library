@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\BookPermission;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,6 +40,6 @@ class User extends Authenticatable
 
     public function books()
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsToMany(Book::class, 'book_permissions')->using(BookPermission::class)->withPivot('permission_id');
     }
 }
